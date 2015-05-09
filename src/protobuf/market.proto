@@ -1,0 +1,60 @@
+package market_proto;
+
+message Order {
+    required string instrument = 1;
+    required int64 quantity = 2;
+    required float price = 3;
+
+    enum OrderWay {
+        BUY = 0;
+        SELL = 1;
+    }
+    required OrderWay way = 4;
+
+    enum OrderType {
+        NEW = 0;
+        MODIFY = 1;
+        CANCEL = 2;
+    }
+    required OrderType order_type = 5;
+    
+}
+
+message UpdateOrder {
+
+    enum OrderStatus {
+        ACK = 0;
+        NACK = 1;
+        FILLED = 2;
+    }
+
+    required OrderStatus status = 1;
+
+    optional int32 exec_qty = 2;
+
+    optional int32 remaining_qty = 3;
+
+    optional float exec_price = 4;
+
+    optional string message = 5;
+
+}
+
+message ConnectionRequest {
+    required int64 client_id = 1;
+
+    required string password = 2;
+}
+
+message ConnectionResponse {
+
+    enum SessionStatus {
+        ACCEPTED  = 0;
+        REJECTED = 1;
+    }
+
+    required SessionStatus status = 1;
+
+    optional string message = 2;
+
+}
