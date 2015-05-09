@@ -1,6 +1,8 @@
 package client;
 
 
+import input.ConsoleListener;
+import input.MarketListener;
 import market_proto.Market;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -65,12 +67,15 @@ public class Main {
         // Create connection request message and send it
         Market.ConnectionRequest cnxReq = Market.ConnectionRequest.newBuilder().setClientId(clientId).setPassword(clientPassword).build();
         cnxReq.writeDelimitedTo(socket.getOutputStream());
+
+        cnxReq.writeTo(System.out);
         socket.getOutputStream().flush();
+        System.out.flush();
         logger.info("Connection request sent to exchange: " + cnxReq.toString().replaceAll("\n", " ; "));
 
 
         // Read response from the exchange
-        Market.ConnectionResponse connectionResponse = Market.ConnectionResponse.parseFrom(socket.getInputStream());
+        Market.ConnectionResponse connectionResponse = Market.ConnectionResponse.parseDelimitedFrom(socket.getInputStream());
         logger.info("Connection response received from exchange: " + connectionResponse.toString().replaceAll("\n", " ; "));
 
         if (connectionResponse.getStatus() == Market.ConnectionResponse.SessionStatus.REJECTED) {
@@ -82,23 +87,17 @@ public class Main {
         logger.info("Connection established");
 
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        boolean exit = false;
-        while (!exit) {
-            logger.info("reading from commandline");
-            String command = bufferedReader.readLine();
-            if (command.trim().equals("quit")) {
-                exit = true;
-            } else {
-                try {
-                    Order order = Order.fromString(command);
-                    order.writeNewToStream(socket.getOutputStream());
-                    socket.getOutputStream().flush();
-                } catch (IllegalArgumentException e) {
-                    logger.warn("Could not parse order from text: " + command);
-                }
+        Thread consoleThread = new Thread(new ConsoleListener());
+        Thread marketThread = new Thread(new MarketListener(socket));
+        consoleThread.start();
+        marketThread.start();
 
-            }
+        try {
+            consoleThread.join();
+            marketThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
     }
 }

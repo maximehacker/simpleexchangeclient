@@ -1,26 +1,29 @@
 package market_proto;
 
 message Order {
-    required string instrument = 1;
-    required int64 quantity = 2;
-    required float price = 3;
+    required int64 order_id = 1;
+    required string instrument = 2;
+    required int64 quantity = 3;
+    required float price = 4;
 
     enum OrderWay {
         BUY = 0;
         SELL = 1;
     }
-    required OrderWay way = 4;
+    required OrderWay way = 5;
 
     enum OrderType {
         NEW = 0;
         MODIFY = 1;
         CANCEL = 2;
     }
-    required OrderType order_type = 5;
+    required OrderType order_type = 6;
     
 }
 
 message UpdateOrder {
+
+    required int64 order_id = 1;
 
     enum OrderStatus {
         ACK = 0;
@@ -28,15 +31,15 @@ message UpdateOrder {
         FILLED = 2;
     }
 
-    required OrderStatus status = 1;
+    required OrderStatus status = 2;
 
-    optional int32 exec_qty = 2;
+    optional int32 exec_qty = 3;
 
-    optional int32 remaining_qty = 3;
+    optional int32 remaining_qty = 4;
 
-    optional float exec_price = 4;
+    optional float exec_price = 5;
 
-    optional string message = 5;
+    optional string message = 6;
 
 }
 

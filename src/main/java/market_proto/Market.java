@@ -13,52 +13,61 @@ public final class Market {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string instrument = 1;</code>
+     * <code>required int64 order_id = 1;</code>
+     */
+    boolean hasOrderId();
+    /**
+     * <code>required int64 order_id = 1;</code>
+     */
+    long getOrderId();
+
+    /**
+     * <code>required string instrument = 2;</code>
      */
     boolean hasInstrument();
     /**
-     * <code>required string instrument = 1;</code>
+     * <code>required string instrument = 2;</code>
      */
     java.lang.String getInstrument();
     /**
-     * <code>required string instrument = 1;</code>
+     * <code>required string instrument = 2;</code>
      */
     com.google.protobuf.ByteString
         getInstrumentBytes();
 
     /**
-     * <code>required int64 quantity = 2;</code>
+     * <code>required int64 quantity = 3;</code>
      */
     boolean hasQuantity();
     /**
-     * <code>required int64 quantity = 2;</code>
+     * <code>required int64 quantity = 3;</code>
      */
     long getQuantity();
 
     /**
-     * <code>required float price = 3;</code>
+     * <code>required float price = 4;</code>
      */
     boolean hasPrice();
     /**
-     * <code>required float price = 3;</code>
+     * <code>required float price = 4;</code>
      */
     float getPrice();
 
     /**
-     * <code>required .market_proto.Order.OrderWay way = 4;</code>
+     * <code>required .market_proto.Order.OrderWay way = 5;</code>
      */
     boolean hasWay();
     /**
-     * <code>required .market_proto.Order.OrderWay way = 4;</code>
+     * <code>required .market_proto.Order.OrderWay way = 5;</code>
      */
     market_proto.Market.Order.OrderWay getWay();
 
     /**
-     * <code>required .market_proto.Order.OrderType order_type = 5;</code>
+     * <code>required .market_proto.Order.OrderType order_type = 6;</code>
      */
     boolean hasOrderType();
     /**
-     * <code>required .market_proto.Order.OrderType order_type = 5;</code>
+     * <code>required .market_proto.Order.OrderType order_type = 6;</code>
      */
     market_proto.Market.Order.OrderType getOrderType();
   }
@@ -114,40 +123,45 @@ public final class Market {
               }
               break;
             }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
+            case 8: {
               bitField0_ |= 0x00000001;
+              orderId_ = input.readInt64();
+              break;
+            }
+            case 18: {
+              com.google.protobuf.ByteString bs = input.readBytes();
+              bitField0_ |= 0x00000002;
               instrument_ = bs;
               break;
             }
-            case 16: {
-              bitField0_ |= 0x00000002;
+            case 24: {
+              bitField0_ |= 0x00000004;
               quantity_ = input.readInt64();
               break;
             }
-            case 29: {
-              bitField0_ |= 0x00000004;
+            case 37: {
+              bitField0_ |= 0x00000008;
               price_ = input.readFloat();
-              break;
-            }
-            case 32: {
-              int rawValue = input.readEnum();
-              market_proto.Market.Order.OrderWay value = market_proto.Market.Order.OrderWay.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(4, rawValue);
-              } else {
-                bitField0_ |= 0x00000008;
-                way_ = value;
-              }
               break;
             }
             case 40: {
               int rawValue = input.readEnum();
-              market_proto.Market.Order.OrderType value = market_proto.Market.Order.OrderType.valueOf(rawValue);
+              market_proto.Market.Order.OrderWay value = market_proto.Market.Order.OrderWay.valueOf(rawValue);
               if (value == null) {
                 unknownFields.mergeVarintField(5, rawValue);
               } else {
                 bitField0_ |= 0x00000010;
+                way_ = value;
+              }
+              break;
+            }
+            case 48: {
+              int rawValue = input.readEnum();
+              market_proto.Market.Order.OrderType value = market_proto.Market.Order.OrderType.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(6, rawValue);
+              } else {
+                bitField0_ |= 0x00000020;
                 orderType_ = value;
               }
               break;
@@ -365,16 +379,31 @@ public final class Market {
     }
 
     private int bitField0_;
-    public static final int INSTRUMENT_FIELD_NUMBER = 1;
-    private java.lang.Object instrument_;
+    public static final int ORDER_ID_FIELD_NUMBER = 1;
+    private long orderId_;
     /**
-     * <code>required string instrument = 1;</code>
+     * <code>required int64 order_id = 1;</code>
      */
-    public boolean hasInstrument() {
+    public boolean hasOrderId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required string instrument = 1;</code>
+     * <code>required int64 order_id = 1;</code>
+     */
+    public long getOrderId() {
+      return orderId_;
+    }
+
+    public static final int INSTRUMENT_FIELD_NUMBER = 2;
+    private java.lang.Object instrument_;
+    /**
+     * <code>required string instrument = 2;</code>
+     */
+    public boolean hasInstrument() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required string instrument = 2;</code>
      */
     public java.lang.String getInstrument() {
       java.lang.Object ref = instrument_;
@@ -391,7 +420,7 @@ public final class Market {
       }
     }
     /**
-     * <code>required string instrument = 1;</code>
+     * <code>required string instrument = 2;</code>
      */
     public com.google.protobuf.ByteString
         getInstrumentBytes() {
@@ -407,67 +436,68 @@ public final class Market {
       }
     }
 
-    public static final int QUANTITY_FIELD_NUMBER = 2;
+    public static final int QUANTITY_FIELD_NUMBER = 3;
     private long quantity_;
     /**
-     * <code>required int64 quantity = 2;</code>
+     * <code>required int64 quantity = 3;</code>
      */
     public boolean hasQuantity() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>required int64 quantity = 2;</code>
+     * <code>required int64 quantity = 3;</code>
      */
     public long getQuantity() {
       return quantity_;
     }
 
-    public static final int PRICE_FIELD_NUMBER = 3;
+    public static final int PRICE_FIELD_NUMBER = 4;
     private float price_;
     /**
-     * <code>required float price = 3;</code>
+     * <code>required float price = 4;</code>
      */
     public boolean hasPrice() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>required float price = 3;</code>
+     * <code>required float price = 4;</code>
      */
     public float getPrice() {
       return price_;
     }
 
-    public static final int WAY_FIELD_NUMBER = 4;
+    public static final int WAY_FIELD_NUMBER = 5;
     private market_proto.Market.Order.OrderWay way_;
     /**
-     * <code>required .market_proto.Order.OrderWay way = 4;</code>
+     * <code>required .market_proto.Order.OrderWay way = 5;</code>
      */
     public boolean hasWay() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>required .market_proto.Order.OrderWay way = 4;</code>
+     * <code>required .market_proto.Order.OrderWay way = 5;</code>
      */
     public market_proto.Market.Order.OrderWay getWay() {
       return way_;
     }
 
-    public static final int ORDER_TYPE_FIELD_NUMBER = 5;
+    public static final int ORDER_TYPE_FIELD_NUMBER = 6;
     private market_proto.Market.Order.OrderType orderType_;
     /**
-     * <code>required .market_proto.Order.OrderType order_type = 5;</code>
+     * <code>required .market_proto.Order.OrderType order_type = 6;</code>
      */
     public boolean hasOrderType() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>required .market_proto.Order.OrderType order_type = 5;</code>
+     * <code>required .market_proto.Order.OrderType order_type = 6;</code>
      */
     public market_proto.Market.Order.OrderType getOrderType() {
       return orderType_;
     }
 
     private void initFields() {
+      orderId_ = 0L;
       instrument_ = "";
       quantity_ = 0L;
       price_ = 0F;
@@ -480,6 +510,10 @@ public final class Market {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
+      if (!hasOrderId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (!hasInstrument()) {
         memoizedIsInitialized = 0;
         return false;
@@ -508,19 +542,22 @@ public final class Market {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getInstrumentBytes());
+        output.writeInt64(1, orderId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt64(2, quantity_);
+        output.writeBytes(2, getInstrumentBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeFloat(3, price_);
+        output.writeInt64(3, quantity_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeEnum(4, way_.getNumber());
+        output.writeFloat(4, price_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeEnum(5, orderType_.getNumber());
+        output.writeEnum(5, way_.getNumber());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeEnum(6, orderType_.getNumber());
       }
       getUnknownFields().writeTo(output);
     }
@@ -533,23 +570,27 @@ public final class Market {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getInstrumentBytes());
+          .computeInt64Size(1, orderId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt64Size(2, quantity_);
+          .computeBytesSize(2, getInstrumentBytes());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, price_);
+          .computeInt64Size(3, quantity_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(4, way_.getNumber());
+          .computeFloatSize(4, price_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(5, orderType_.getNumber());
+          .computeEnumSize(5, way_.getNumber());
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(6, orderType_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -668,16 +709,18 @@ public final class Market {
 
       public Builder clear() {
         super.clear();
-        instrument_ = "";
+        orderId_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
-        quantity_ = 0L;
+        instrument_ = "";
         bitField0_ = (bitField0_ & ~0x00000002);
-        price_ = 0F;
+        quantity_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000004);
-        way_ = market_proto.Market.Order.OrderWay.BUY;
+        price_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000008);
-        orderType_ = market_proto.Market.Order.OrderType.NEW;
+        way_ = market_proto.Market.Order.OrderWay.BUY;
         bitField0_ = (bitField0_ & ~0x00000010);
+        orderType_ = market_proto.Market.Order.OrderType.NEW;
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -709,21 +752,25 @@ public final class Market {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.instrument_ = instrument_;
+        result.orderId_ = orderId_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.quantity_ = quantity_;
+        result.instrument_ = instrument_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.price_ = price_;
+        result.quantity_ = quantity_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.way_ = way_;
+        result.price_ = price_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
+        }
+        result.way_ = way_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
         }
         result.orderType_ = orderType_;
         result.bitField0_ = to_bitField0_;
@@ -742,8 +789,11 @@ public final class Market {
 
       public Builder mergeFrom(market_proto.Market.Order other) {
         if (other == market_proto.Market.Order.getDefaultInstance()) return this;
+        if (other.hasOrderId()) {
+          setOrderId(other.getOrderId());
+        }
         if (other.hasInstrument()) {
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000002;
           instrument_ = other.instrument_;
           onChanged();
         }
@@ -764,6 +814,10 @@ public final class Market {
       }
 
       public final boolean isInitialized() {
+        if (!hasOrderId()) {
+          
+          return false;
+        }
         if (!hasInstrument()) {
           
           return false;
@@ -806,15 +860,47 @@ public final class Market {
       }
       private int bitField0_;
 
-      private java.lang.Object instrument_ = "";
+      private long orderId_ ;
       /**
-       * <code>required string instrument = 1;</code>
+       * <code>required int64 order_id = 1;</code>
        */
-      public boolean hasInstrument() {
+      public boolean hasOrderId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required string instrument = 1;</code>
+       * <code>required int64 order_id = 1;</code>
+       */
+      public long getOrderId() {
+        return orderId_;
+      }
+      /**
+       * <code>required int64 order_id = 1;</code>
+       */
+      public Builder setOrderId(long value) {
+        bitField0_ |= 0x00000001;
+        orderId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 order_id = 1;</code>
+       */
+      public Builder clearOrderId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        orderId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object instrument_ = "";
+      /**
+       * <code>required string instrument = 2;</code>
+       */
+      public boolean hasInstrument() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required string instrument = 2;</code>
        */
       public java.lang.String getInstrument() {
         java.lang.Object ref = instrument_;
@@ -831,7 +917,7 @@ public final class Market {
         }
       }
       /**
-       * <code>required string instrument = 1;</code>
+       * <code>required string instrument = 2;</code>
        */
       public com.google.protobuf.ByteString
           getInstrumentBytes() {
@@ -847,36 +933,36 @@ public final class Market {
         }
       }
       /**
-       * <code>required string instrument = 1;</code>
+       * <code>required string instrument = 2;</code>
        */
       public Builder setInstrument(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         instrument_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string instrument = 1;</code>
+       * <code>required string instrument = 2;</code>
        */
       public Builder clearInstrument() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         instrument_ = getDefaultInstance().getInstrument();
         onChanged();
         return this;
       }
       /**
-       * <code>required string instrument = 1;</code>
+       * <code>required string instrument = 2;</code>
        */
       public Builder setInstrumentBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  bitField0_ |= 0x00000002;
         instrument_ = value;
         onChanged();
         return this;
@@ -884,31 +970,31 @@ public final class Market {
 
       private long quantity_ ;
       /**
-       * <code>required int64 quantity = 2;</code>
+       * <code>required int64 quantity = 3;</code>
        */
       public boolean hasQuantity() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>required int64 quantity = 2;</code>
+       * <code>required int64 quantity = 3;</code>
        */
       public long getQuantity() {
         return quantity_;
       }
       /**
-       * <code>required int64 quantity = 2;</code>
+       * <code>required int64 quantity = 3;</code>
        */
       public Builder setQuantity(long value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         quantity_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int64 quantity = 2;</code>
+       * <code>required int64 quantity = 3;</code>
        */
       public Builder clearQuantity() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         quantity_ = 0L;
         onChanged();
         return this;
@@ -916,31 +1002,31 @@ public final class Market {
 
       private float price_ ;
       /**
-       * <code>required float price = 3;</code>
+       * <code>required float price = 4;</code>
        */
       public boolean hasPrice() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>required float price = 3;</code>
+       * <code>required float price = 4;</code>
        */
       public float getPrice() {
         return price_;
       }
       /**
-       * <code>required float price = 3;</code>
+       * <code>required float price = 4;</code>
        */
       public Builder setPrice(float value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         price_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required float price = 3;</code>
+       * <code>required float price = 4;</code>
        */
       public Builder clearPrice() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         price_ = 0F;
         onChanged();
         return this;
@@ -948,34 +1034,34 @@ public final class Market {
 
       private market_proto.Market.Order.OrderWay way_ = market_proto.Market.Order.OrderWay.BUY;
       /**
-       * <code>required .market_proto.Order.OrderWay way = 4;</code>
+       * <code>required .market_proto.Order.OrderWay way = 5;</code>
        */
       public boolean hasWay() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>required .market_proto.Order.OrderWay way = 4;</code>
+       * <code>required .market_proto.Order.OrderWay way = 5;</code>
        */
       public market_proto.Market.Order.OrderWay getWay() {
         return way_;
       }
       /**
-       * <code>required .market_proto.Order.OrderWay way = 4;</code>
+       * <code>required .market_proto.Order.OrderWay way = 5;</code>
        */
       public Builder setWay(market_proto.Market.Order.OrderWay value) {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         way_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required .market_proto.Order.OrderWay way = 4;</code>
+       * <code>required .market_proto.Order.OrderWay way = 5;</code>
        */
       public Builder clearWay() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         way_ = market_proto.Market.Order.OrderWay.BUY;
         onChanged();
         return this;
@@ -983,34 +1069,34 @@ public final class Market {
 
       private market_proto.Market.Order.OrderType orderType_ = market_proto.Market.Order.OrderType.NEW;
       /**
-       * <code>required .market_proto.Order.OrderType order_type = 5;</code>
+       * <code>required .market_proto.Order.OrderType order_type = 6;</code>
        */
       public boolean hasOrderType() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>required .market_proto.Order.OrderType order_type = 5;</code>
+       * <code>required .market_proto.Order.OrderType order_type = 6;</code>
        */
       public market_proto.Market.Order.OrderType getOrderType() {
         return orderType_;
       }
       /**
-       * <code>required .market_proto.Order.OrderType order_type = 5;</code>
+       * <code>required .market_proto.Order.OrderType order_type = 6;</code>
        */
       public Builder setOrderType(market_proto.Market.Order.OrderType value) {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         orderType_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required .market_proto.Order.OrderType order_type = 5;</code>
+       * <code>required .market_proto.Order.OrderType order_type = 6;</code>
        */
       public Builder clearOrderType() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         orderType_ = market_proto.Market.Order.OrderType.NEW;
         onChanged();
         return this;
@@ -1032,51 +1118,60 @@ public final class Market {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required .market_proto.UpdateOrder.OrderStatus status = 1;</code>
+     * <code>required int64 order_id = 1;</code>
+     */
+    boolean hasOrderId();
+    /**
+     * <code>required int64 order_id = 1;</code>
+     */
+    long getOrderId();
+
+    /**
+     * <code>required .market_proto.UpdateOrder.OrderStatus status = 2;</code>
      */
     boolean hasStatus();
     /**
-     * <code>required .market_proto.UpdateOrder.OrderStatus status = 1;</code>
+     * <code>required .market_proto.UpdateOrder.OrderStatus status = 2;</code>
      */
     market_proto.Market.UpdateOrder.OrderStatus getStatus();
 
     /**
-     * <code>optional int32 exec_qty = 2;</code>
+     * <code>optional int32 exec_qty = 3;</code>
      */
     boolean hasExecQty();
     /**
-     * <code>optional int32 exec_qty = 2;</code>
+     * <code>optional int32 exec_qty = 3;</code>
      */
     int getExecQty();
 
     /**
-     * <code>optional int32 remaining_qty = 3;</code>
+     * <code>optional int32 remaining_qty = 4;</code>
      */
     boolean hasRemainingQty();
     /**
-     * <code>optional int32 remaining_qty = 3;</code>
+     * <code>optional int32 remaining_qty = 4;</code>
      */
     int getRemainingQty();
 
     /**
-     * <code>optional float exec_price = 4;</code>
+     * <code>optional float exec_price = 5;</code>
      */
     boolean hasExecPrice();
     /**
-     * <code>optional float exec_price = 4;</code>
+     * <code>optional float exec_price = 5;</code>
      */
     float getExecPrice();
 
     /**
-     * <code>optional string message = 5;</code>
+     * <code>optional string message = 6;</code>
      */
     boolean hasMessage();
     /**
-     * <code>optional string message = 5;</code>
+     * <code>optional string message = 6;</code>
      */
     java.lang.String getMessage();
     /**
-     * <code>optional string message = 5;</code>
+     * <code>optional string message = 6;</code>
      */
     com.google.protobuf.ByteString
         getMessageBytes();
@@ -1134,34 +1229,39 @@ public final class Market {
               break;
             }
             case 8: {
+              bitField0_ |= 0x00000001;
+              orderId_ = input.readInt64();
+              break;
+            }
+            case 16: {
               int rawValue = input.readEnum();
               market_proto.Market.UpdateOrder.OrderStatus value = market_proto.Market.UpdateOrder.OrderStatus.valueOf(rawValue);
               if (value == null) {
-                unknownFields.mergeVarintField(1, rawValue);
+                unknownFields.mergeVarintField(2, rawValue);
               } else {
-                bitField0_ |= 0x00000001;
+                bitField0_ |= 0x00000002;
                 status_ = value;
               }
               break;
             }
-            case 16: {
-              bitField0_ |= 0x00000002;
+            case 24: {
+              bitField0_ |= 0x00000004;
               execQty_ = input.readInt32();
               break;
             }
-            case 24: {
-              bitField0_ |= 0x00000004;
+            case 32: {
+              bitField0_ |= 0x00000008;
               remainingQty_ = input.readInt32();
               break;
             }
-            case 37: {
-              bitField0_ |= 0x00000008;
+            case 45: {
+              bitField0_ |= 0x00000010;
               execPrice_ = input.readFloat();
               break;
             }
-            case 42: {
+            case 50: {
               com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000010;
+              bitField0_ |= 0x00000020;
               message_ = bs;
               break;
             }
@@ -1296,76 +1396,91 @@ public final class Market {
     }
 
     private int bitField0_;
-    public static final int STATUS_FIELD_NUMBER = 1;
-    private market_proto.Market.UpdateOrder.OrderStatus status_;
+    public static final int ORDER_ID_FIELD_NUMBER = 1;
+    private long orderId_;
     /**
-     * <code>required .market_proto.UpdateOrder.OrderStatus status = 1;</code>
+     * <code>required int64 order_id = 1;</code>
      */
-    public boolean hasStatus() {
+    public boolean hasOrderId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required .market_proto.UpdateOrder.OrderStatus status = 1;</code>
+     * <code>required int64 order_id = 1;</code>
+     */
+    public long getOrderId() {
+      return orderId_;
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 2;
+    private market_proto.Market.UpdateOrder.OrderStatus status_;
+    /**
+     * <code>required .market_proto.UpdateOrder.OrderStatus status = 2;</code>
+     */
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required .market_proto.UpdateOrder.OrderStatus status = 2;</code>
      */
     public market_proto.Market.UpdateOrder.OrderStatus getStatus() {
       return status_;
     }
 
-    public static final int EXEC_QTY_FIELD_NUMBER = 2;
+    public static final int EXEC_QTY_FIELD_NUMBER = 3;
     private int execQty_;
     /**
-     * <code>optional int32 exec_qty = 2;</code>
+     * <code>optional int32 exec_qty = 3;</code>
      */
     public boolean hasExecQty() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return ((bitField0_ & 0x00000004) == 0x00000004);
     }
     /**
-     * <code>optional int32 exec_qty = 2;</code>
+     * <code>optional int32 exec_qty = 3;</code>
      */
     public int getExecQty() {
       return execQty_;
     }
 
-    public static final int REMAINING_QTY_FIELD_NUMBER = 3;
+    public static final int REMAINING_QTY_FIELD_NUMBER = 4;
     private int remainingQty_;
     /**
-     * <code>optional int32 remaining_qty = 3;</code>
+     * <code>optional int32 remaining_qty = 4;</code>
      */
     public boolean hasRemainingQty() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
-     * <code>optional int32 remaining_qty = 3;</code>
+     * <code>optional int32 remaining_qty = 4;</code>
      */
     public int getRemainingQty() {
       return remainingQty_;
     }
 
-    public static final int EXEC_PRICE_FIELD_NUMBER = 4;
+    public static final int EXEC_PRICE_FIELD_NUMBER = 5;
     private float execPrice_;
     /**
-     * <code>optional float exec_price = 4;</code>
+     * <code>optional float exec_price = 5;</code>
      */
     public boolean hasExecPrice() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
+      return ((bitField0_ & 0x00000010) == 0x00000010);
     }
     /**
-     * <code>optional float exec_price = 4;</code>
+     * <code>optional float exec_price = 5;</code>
      */
     public float getExecPrice() {
       return execPrice_;
     }
 
-    public static final int MESSAGE_FIELD_NUMBER = 5;
+    public static final int MESSAGE_FIELD_NUMBER = 6;
     private java.lang.Object message_;
     /**
-     * <code>optional string message = 5;</code>
+     * <code>optional string message = 6;</code>
      */
     public boolean hasMessage() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
+      return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
-     * <code>optional string message = 5;</code>
+     * <code>optional string message = 6;</code>
      */
     public java.lang.String getMessage() {
       java.lang.Object ref = message_;
@@ -1382,7 +1497,7 @@ public final class Market {
       }
     }
     /**
-     * <code>optional string message = 5;</code>
+     * <code>optional string message = 6;</code>
      */
     public com.google.protobuf.ByteString
         getMessageBytes() {
@@ -1399,6 +1514,7 @@ public final class Market {
     }
 
     private void initFields() {
+      orderId_ = 0L;
       status_ = market_proto.Market.UpdateOrder.OrderStatus.ACK;
       execQty_ = 0;
       remainingQty_ = 0;
@@ -1411,6 +1527,10 @@ public final class Market {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
+      if (!hasOrderId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
       if (!hasStatus()) {
         memoizedIsInitialized = 0;
         return false;
@@ -1423,19 +1543,22 @@ public final class Market {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeEnum(1, status_.getNumber());
+        output.writeInt64(1, orderId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeInt32(2, execQty_);
+        output.writeEnum(2, status_.getNumber());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeInt32(3, remainingQty_);
+        output.writeInt32(3, execQty_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
-        output.writeFloat(4, execPrice_);
+        output.writeInt32(4, remainingQty_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
-        output.writeBytes(5, getMessageBytes());
+        output.writeFloat(5, execPrice_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        output.writeBytes(6, getMessageBytes());
       }
       getUnknownFields().writeTo(output);
     }
@@ -1448,23 +1571,27 @@ public final class Market {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, status_.getNumber());
+          .computeInt64Size(1, orderId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, execQty_);
+          .computeEnumSize(2, status_.getNumber());
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(3, remainingQty_);
+          .computeInt32Size(3, execQty_);
       }
       if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(4, execPrice_);
+          .computeInt32Size(4, remainingQty_);
       }
       if (((bitField0_ & 0x00000010) == 0x00000010)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, getMessageBytes());
+          .computeFloatSize(5, execPrice_);
+      }
+      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getMessageBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1583,16 +1710,18 @@ public final class Market {
 
       public Builder clear() {
         super.clear();
-        status_ = market_proto.Market.UpdateOrder.OrderStatus.ACK;
+        orderId_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
-        execQty_ = 0;
+        status_ = market_proto.Market.UpdateOrder.OrderStatus.ACK;
         bitField0_ = (bitField0_ & ~0x00000002);
-        remainingQty_ = 0;
+        execQty_ = 0;
         bitField0_ = (bitField0_ & ~0x00000004);
-        execPrice_ = 0F;
+        remainingQty_ = 0;
         bitField0_ = (bitField0_ & ~0x00000008);
-        message_ = "";
+        execPrice_ = 0F;
         bitField0_ = (bitField0_ & ~0x00000010);
+        message_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -1624,21 +1753,25 @@ public final class Market {
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        result.status_ = status_;
+        result.orderId_ = orderId_;
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.execQty_ = execQty_;
+        result.status_ = status_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.remainingQty_ = remainingQty_;
+        result.execQty_ = execQty_;
         if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
           to_bitField0_ |= 0x00000008;
         }
-        result.execPrice_ = execPrice_;
+        result.remainingQty_ = remainingQty_;
         if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
           to_bitField0_ |= 0x00000010;
+        }
+        result.execPrice_ = execPrice_;
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000020;
         }
         result.message_ = message_;
         result.bitField0_ = to_bitField0_;
@@ -1657,6 +1790,9 @@ public final class Market {
 
       public Builder mergeFrom(market_proto.Market.UpdateOrder other) {
         if (other == market_proto.Market.UpdateOrder.getDefaultInstance()) return this;
+        if (other.hasOrderId()) {
+          setOrderId(other.getOrderId());
+        }
         if (other.hasStatus()) {
           setStatus(other.getStatus());
         }
@@ -1670,7 +1806,7 @@ public final class Market {
           setExecPrice(other.getExecPrice());
         }
         if (other.hasMessage()) {
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000020;
           message_ = other.message_;
           onChanged();
         }
@@ -1679,6 +1815,10 @@ public final class Market {
       }
 
       public final boolean isInitialized() {
+        if (!hasOrderId()) {
+          
+          return false;
+        }
         if (!hasStatus()) {
           
           return false;
@@ -1705,36 +1845,68 @@ public final class Market {
       }
       private int bitField0_;
 
-      private market_proto.Market.UpdateOrder.OrderStatus status_ = market_proto.Market.UpdateOrder.OrderStatus.ACK;
+      private long orderId_ ;
       /**
-       * <code>required .market_proto.UpdateOrder.OrderStatus status = 1;</code>
+       * <code>required int64 order_id = 1;</code>
        */
-      public boolean hasStatus() {
+      public boolean hasOrderId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required .market_proto.UpdateOrder.OrderStatus status = 1;</code>
+       * <code>required int64 order_id = 1;</code>
+       */
+      public long getOrderId() {
+        return orderId_;
+      }
+      /**
+       * <code>required int64 order_id = 1;</code>
+       */
+      public Builder setOrderId(long value) {
+        bitField0_ |= 0x00000001;
+        orderId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required int64 order_id = 1;</code>
+       */
+      public Builder clearOrderId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        orderId_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private market_proto.Market.UpdateOrder.OrderStatus status_ = market_proto.Market.UpdateOrder.OrderStatus.ACK;
+      /**
+       * <code>required .market_proto.UpdateOrder.OrderStatus status = 2;</code>
+       */
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required .market_proto.UpdateOrder.OrderStatus status = 2;</code>
        */
       public market_proto.Market.UpdateOrder.OrderStatus getStatus() {
         return status_;
       }
       /**
-       * <code>required .market_proto.UpdateOrder.OrderStatus status = 1;</code>
+       * <code>required .market_proto.UpdateOrder.OrderStatus status = 2;</code>
        */
       public Builder setStatus(market_proto.Market.UpdateOrder.OrderStatus value) {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         status_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required .market_proto.UpdateOrder.OrderStatus status = 1;</code>
+       * <code>required .market_proto.UpdateOrder.OrderStatus status = 2;</code>
        */
       public Builder clearStatus() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         status_ = market_proto.Market.UpdateOrder.OrderStatus.ACK;
         onChanged();
         return this;
@@ -1742,31 +1914,31 @@ public final class Market {
 
       private int execQty_ ;
       /**
-       * <code>optional int32 exec_qty = 2;</code>
+       * <code>optional int32 exec_qty = 3;</code>
        */
       public boolean hasExecQty() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return ((bitField0_ & 0x00000004) == 0x00000004);
       }
       /**
-       * <code>optional int32 exec_qty = 2;</code>
+       * <code>optional int32 exec_qty = 3;</code>
        */
       public int getExecQty() {
         return execQty_;
       }
       /**
-       * <code>optional int32 exec_qty = 2;</code>
+       * <code>optional int32 exec_qty = 3;</code>
        */
       public Builder setExecQty(int value) {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         execQty_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 exec_qty = 2;</code>
+       * <code>optional int32 exec_qty = 3;</code>
        */
       public Builder clearExecQty() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         execQty_ = 0;
         onChanged();
         return this;
@@ -1774,31 +1946,31 @@ public final class Market {
 
       private int remainingQty_ ;
       /**
-       * <code>optional int32 remaining_qty = 3;</code>
+       * <code>optional int32 remaining_qty = 4;</code>
        */
       public boolean hasRemainingQty() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
-       * <code>optional int32 remaining_qty = 3;</code>
+       * <code>optional int32 remaining_qty = 4;</code>
        */
       public int getRemainingQty() {
         return remainingQty_;
       }
       /**
-       * <code>optional int32 remaining_qty = 3;</code>
+       * <code>optional int32 remaining_qty = 4;</code>
        */
       public Builder setRemainingQty(int value) {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         remainingQty_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional int32 remaining_qty = 3;</code>
+       * <code>optional int32 remaining_qty = 4;</code>
        */
       public Builder clearRemainingQty() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         remainingQty_ = 0;
         onChanged();
         return this;
@@ -1806,31 +1978,31 @@ public final class Market {
 
       private float execPrice_ ;
       /**
-       * <code>optional float exec_price = 4;</code>
+       * <code>optional float exec_price = 5;</code>
        */
       public boolean hasExecPrice() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
+        return ((bitField0_ & 0x00000010) == 0x00000010);
       }
       /**
-       * <code>optional float exec_price = 4;</code>
+       * <code>optional float exec_price = 5;</code>
        */
       public float getExecPrice() {
         return execPrice_;
       }
       /**
-       * <code>optional float exec_price = 4;</code>
+       * <code>optional float exec_price = 5;</code>
        */
       public Builder setExecPrice(float value) {
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         execPrice_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional float exec_price = 4;</code>
+       * <code>optional float exec_price = 5;</code>
        */
       public Builder clearExecPrice() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         execPrice_ = 0F;
         onChanged();
         return this;
@@ -1838,13 +2010,13 @@ public final class Market {
 
       private java.lang.Object message_ = "";
       /**
-       * <code>optional string message = 5;</code>
+       * <code>optional string message = 6;</code>
        */
       public boolean hasMessage() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
+        return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
-       * <code>optional string message = 5;</code>
+       * <code>optional string message = 6;</code>
        */
       public java.lang.String getMessage() {
         java.lang.Object ref = message_;
@@ -1861,7 +2033,7 @@ public final class Market {
         }
       }
       /**
-       * <code>optional string message = 5;</code>
+       * <code>optional string message = 6;</code>
        */
       public com.google.protobuf.ByteString
           getMessageBytes() {
@@ -1877,36 +2049,36 @@ public final class Market {
         }
       }
       /**
-       * <code>optional string message = 5;</code>
+       * <code>optional string message = 6;</code>
        */
       public Builder setMessage(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000020;
         message_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string message = 5;</code>
+       * <code>optional string message = 6;</code>
        */
       public Builder clearMessage() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         message_ = getDefaultInstance().getMessage();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string message = 5;</code>
+       * <code>optional string message = 6;</code>
        */
       public Builder setMessageBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000010;
+  bitField0_ |= 0x00000020;
         message_ = value;
         onChanged();
         return this;
@@ -3175,23 +3347,24 @@ public final class Market {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014market.proto\022\014market_proto\"\347\001\n\005Order\022\022" +
-      "\n\ninstrument\030\001 \002(\t\022\020\n\010quantity\030\002 \002(\003\022\r\n\005" +
-      "price\030\003 \002(\002\022)\n\003way\030\004 \002(\0162\034.market_proto." +
-      "Order.OrderWay\0221\n\norder_type\030\005 \002(\0162\035.mar" +
-      "ket_proto.Order.OrderType\"\035\n\010OrderWay\022\007\n" +
-      "\003BUY\020\000\022\010\n\004SELL\020\001\",\n\tOrderType\022\007\n\003NEW\020\000\022\n" +
-      "\n\006MODIFY\020\001\022\n\n\006CANCEL\020\002\"\300\001\n\013UpdateOrder\0225" +
-      "\n\006status\030\001 \002(\0162%.market_proto.UpdateOrde" +
-      "r.OrderStatus\022\020\n\010exec_qty\030\002 \001(\005\022\025\n\rremai" +
-      "ning_qty\030\003 \001(\005\022\022\n\nexec_price\030\004 \001(\002\022\017\n\007me",
-      "ssage\030\005 \001(\t\",\n\013OrderStatus\022\007\n\003ACK\020\000\022\010\n\004N" +
-      "ACK\020\001\022\n\n\006FILLED\020\002\"8\n\021ConnectionRequest\022\021" +
-      "\n\tclient_id\030\001 \002(\003\022\020\n\010password\030\002 \002(\t\"\222\001\n\022" +
-      "ConnectionResponse\022>\n\006status\030\001 \002(\0162..mar" +
-      "ket_proto.ConnectionResponse.SessionStat" +
-      "us\022\017\n\007message\030\002 \001(\t\"+\n\rSessionStatus\022\014\n\010" +
-      "ACCEPTED\020\000\022\014\n\010REJECTED\020\001"
+      "\n\014market.proto\022\014market_proto\"\371\001\n\005Order\022\020" +
+      "\n\010order_id\030\001 \002(\003\022\022\n\ninstrument\030\002 \002(\t\022\020\n\010" +
+      "quantity\030\003 \002(\003\022\r\n\005price\030\004 \002(\002\022)\n\003way\030\005 \002" +
+      "(\0162\034.market_proto.Order.OrderWay\0221\n\norde" +
+      "r_type\030\006 \002(\0162\035.market_proto.Order.OrderT" +
+      "ype\"\035\n\010OrderWay\022\007\n\003BUY\020\000\022\010\n\004SELL\020\001\",\n\tOr" +
+      "derType\022\007\n\003NEW\020\000\022\n\n\006MODIFY\020\001\022\n\n\006CANCEL\020\002" +
+      "\"\322\001\n\013UpdateOrder\022\020\n\010order_id\030\001 \002(\003\0225\n\006st" +
+      "atus\030\002 \002(\0162%.market_proto.UpdateOrder.Or" +
+      "derStatus\022\020\n\010exec_qty\030\003 \001(\005\022\025\n\rremaining",
+      "_qty\030\004 \001(\005\022\022\n\nexec_price\030\005 \001(\002\022\017\n\007messag" +
+      "e\030\006 \001(\t\",\n\013OrderStatus\022\007\n\003ACK\020\000\022\010\n\004NACK\020" +
+      "\001\022\n\n\006FILLED\020\002\"8\n\021ConnectionRequest\022\021\n\tcl" +
+      "ient_id\030\001 \002(\003\022\020\n\010password\030\002 \002(\t\"\222\001\n\022Conn" +
+      "ectionResponse\022>\n\006status\030\001 \002(\0162..market_" +
+      "proto.ConnectionResponse.SessionStatus\022\017" +
+      "\n\007message\030\002 \001(\t\"+\n\rSessionStatus\022\014\n\010ACCE" +
+      "PTED\020\000\022\014\n\010REJECTED\020\001"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3210,13 +3383,13 @@ public final class Market {
     internal_static_market_proto_Order_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_market_proto_Order_descriptor,
-        new java.lang.String[] { "Instrument", "Quantity", "Price", "Way", "OrderType", });
+        new java.lang.String[] { "OrderId", "Instrument", "Quantity", "Price", "Way", "OrderType", });
     internal_static_market_proto_UpdateOrder_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_market_proto_UpdateOrder_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_market_proto_UpdateOrder_descriptor,
-        new java.lang.String[] { "Status", "ExecQty", "RemainingQty", "ExecPrice", "Message", });
+        new java.lang.String[] { "OrderId", "Status", "ExecQty", "RemainingQty", "ExecPrice", "Message", });
     internal_static_market_proto_ConnectionRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_market_proto_ConnectionRequest_fieldAccessorTable = new
