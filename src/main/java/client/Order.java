@@ -1,6 +1,7 @@
 package client;
 
 import market_proto.Market;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,11 +14,26 @@ import java.util.regex.Pattern;
 
 public class Order {
 
+    private static Logger logger = Logger.getLogger(Order.class);
+    public enum ORDER_STATUS {
+        ACK, NACKED, REJECTED, FILLED, CANCELLED
+    }
+
     private Integer id;
     private String instrument;
     private Long quantity;
     private Float price;
     private Market.Order.OrderWay way;
+
+    public ORDER_STATUS getStatus() {
+        return status;
+    }
+
+    public void setStatus(ORDER_STATUS status) {
+        this.status = status;
+    }
+
+    private ORDER_STATUS status;
 
     public Integer getId() {
         return id;
@@ -62,7 +78,7 @@ public class Order {
     public void writeNewToStream(OutputStream out) throws IOException {
 
         Market.Order order = Market.Order.newBuilder().setInstrument(getInstrument()).setPrice(getPrice()).
-                setOrderType(Market.Order.OrderType.NEW).setWay(getWay()).setQuantity(getQuantity()).build();
+                setOrderType(Market.Order.OrderType.NEW).setWay(getWay()).setQuantity(getQuantity()).setOrderId(getId()).build();
         order.writeDelimitedTo(out);
     }
 
@@ -88,8 +104,25 @@ public class Order {
         }
 
         return order;
+    }
+
+    public void updateOrder(Market.UpdateOrder update) {
+        if (update.getStatus() == Market.UpdateOrder.OrderStatus.ACK) {
+            this.setStatus(ORDER_STATUS.ACK);
+            logger.warn(String.format("Order %d acked.", getId()));
+        } else if (update.getStatus() == Market.UpdateOrder.OrderStatus.NACK) {
+            this.setStatus(ORDER_STATUS.REJECTED);
+            logger.warn(String.format("Order %d rejected for the following reason: %s", getId(), update.getMessage()));
+            return;
+        }
+
+        if ( update.hasExecQty() && update.getExecQty() > 0) {
+
+        }
 
 
     }
+
+
 }
 

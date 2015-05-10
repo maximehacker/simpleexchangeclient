@@ -7,9 +7,7 @@ import market_proto.Market;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Properties;
 
@@ -87,10 +85,13 @@ public class Main {
         logger.info("Connection established");
 
 
-        Thread consoleThread = new Thread(new ConsoleListener());
-        Thread marketThread = new Thread(new MarketListener(socket));
+        OrderBook orderBook = new OrderBook();
+
+        Thread consoleThread = new Thread(new ConsoleListener(socket, orderBook));
+        Thread marketThread = new Thread(new MarketListener(socket, orderBook));
         consoleThread.start();
         marketThread.start();
+
 
         try {
             consoleThread.join();
